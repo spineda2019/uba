@@ -1,0 +1,15 @@
+# Mobile packaging for xbuild (install: cargo install --git https://github.com/rust-mobile/xbuild.git).
+# xbuild invokes cargo to compile Rust, then wraps the result in an APK (Android) or IPA (iOS).
+# Desktop builds ignore this file — use `cargo run` / `cargo build`.
+
+android:
+  manifest:
+    package: "dev.uba" # Play Store application id
+    version_code: 1
+    application:
+      label: "uba"
+
+ios:
+  info:
+    cf_bundle_identifier: "dev.uba" # App Store bundle id
+    cf_bundle_name: "uba"

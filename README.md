@@ -2,21 +2,36 @@
 
 The Ubiquitous Budgeting App.
 
+## Workspace layout
+
+```
+uba-core/      platform-agnostic logic (no Slint)
+uba-desktop/   desktop + iOS binary
+uba-android/   Android cdylib (android_main)
+ui/            shared Slint UI (compiled by both app crates)
+```
+
 ## Building for Desktop
 
-use plain cargo:
+From the workspace root (`default-members` points at `uba-desktop`):
 
 ```sh
 cargo run
 cargo build --release
 ```
 
+Explicit package:
+
+```sh
+cargo run -p uba-desktop
+```
+
 ## Mobile
 
 Rust compilation still goes through cargo
-(via [xbuild](https://github.com/rust-mobile/xbuild)). xbuild only handles
-platform packaging (APK / IPA) and deployment. App metadata lives in
-[`manifest.yaml`](manifest.yaml).
+(via [xbuild](https://github.com/rust-mobile/xbuild)). xbuild builds
+`uba-android` (cdylib) for Android and `uba-desktop` (bin) for iOS.
+App metadata lives in [`manifest.yaml`](manifest.yaml).
 
 ### Setup (once)
 
@@ -32,31 +47,31 @@ x doctor   # lists missing SDK/NDK tools
 Android: install [Android Studio](https://developer.android.com/studio) and the
 SDK/NDK (path shown in SDK settings; set `ANDROID_HOME` if needed).
 
-ios: requires macOS with Xcode.
+iOS: requires macOS with Xcode.
 
 ### Run on a device
 
 ```sh
-x devices                          # list connected devices / emulators
-x run --device <id>                # build (via cargo) and install
+x devices
+x run --device <id>
 x run --device <id> --release
 ```
-
-Examples of device ids: `adb:emulator-5554` (Android), `sim:…` or `imd:…` (iOS).
 
 ### Build installable artifacts
 
 ```sh
 x build --platform android --arch arm64 --format apk --release
-# output: target/x/release/android/.apk
+# builds uba-android → target/x/release/android/.apk
 
 x build --platform ios --release
-# output under target/x/release/ios/
+# builds uba-desktop bin → target/x/release/ios/
 ```
 
 ### Compile-check without a device
 
+Requires `ANDROID_HOME` and a JDK for Android (Slint compiles Java helpers).
+
 ```sh
-cargo build --target aarch64-linux-android
-cargo build --target aarch64-apple-ios
+cargo build -p uba-android --target aarch64-linux-android
+cargo build -p uba-desktop --target aarch64-apple-ios
 ```

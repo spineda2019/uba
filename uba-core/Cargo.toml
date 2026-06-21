@@ -1,0 +1,4 @@
+[package]
+name = "uba-core"
+version.workspace = true
+edition.workspace = true

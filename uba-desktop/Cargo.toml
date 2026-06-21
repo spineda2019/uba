@@ -1,0 +1,16 @@
+[package]
+name = "uba-desktop"
+version.workspace = true
+edition.workspace = true
+build = "build.rs"
+
+[[bin]]
+name = "uba-desktop"
+path = "src/main.rs"
+
+[dependencies]
+uba-core = { path = "../uba-core" }
+slint = "1.16"
+
+[build-dependencies]
+slint-build = "1.16"

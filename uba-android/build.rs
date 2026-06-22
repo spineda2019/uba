@@ -1,18 +1,18 @@
 use std::env;
 use std::path::PathBuf;
 
-const ANDROID_ENV_VARS: [&str; 5] = [
+const ANDROID_ENV_VARS: [&str; 4] = [
     "ANDROID_HOME",
     "ANDROID_SDK_ROOT",
     "ANDROID_NDK_HOME",
     "JAVA_HOME",
-    "CARGO_TARGET_AARCH64_LINUX_ANDROID_LINKER",
 ];
 
 fn main() {
     for var in ANDROID_ENV_VARS {
         println!("cargo:rerun-if-env-changed={var}");
     }
+    println!("cargo:rerun-if-env-changed=TARGET");
 
     // **************************** Target Check **************************** //
     let target = env::var("TARGET").expect("TARGET is not set");
@@ -22,6 +22,12 @@ fn main() {
              Try: cargo build -p uba-android --target aarch64-linux-android"
         );
     }
+
+    let linker_env = format!(
+        "CARGO_TARGET_{}_LINKER",
+        target.to_uppercase().replace('-', "_")
+    );
+    println!("cargo:rerun-if-env-changed={linker_env}");
 
     // *************************** Android Check **************************** //
     if env_var_path("ANDROID_HOME")
@@ -35,13 +41,11 @@ fn main() {
         );
     }
 
-    let linker = env_var_path("CARGO_TARGET_AARCH64_LINUX_ANDROID_LINKER")
-        .expect("CARGO_TARGET_AARCH64_LINUX_ANDROID_LINKER not set");
+    let linker = env_var_path(&linker_env).unwrap_or_else(|| panic!("{linker_env} not set"));
     if !linker.is_file() {
         panic!(
-            "error: CARGO_TARGET_AARCH64_LINUX_ANDROID_LINKER is set but not a file:\n\
-             {}\n\
-             Point it at the NDK's aarch64-linux-android*-clang binary.",
+            "error: {linker_env} is set but not a file: {}\n\
+             Point it at the NDK's {target}*-clang binary.",
             linker.display()
         );
     }

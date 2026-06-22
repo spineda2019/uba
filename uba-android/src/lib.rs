@@ -1,7 +1,6 @@
 slint::include_modules!();
 
 fn run_app() -> Result<(), Box<dyn std::error::Error>> {
-    let _ = uba_core::app_name();
     AppWindow::new()?.run()?;
     Ok(())
 }

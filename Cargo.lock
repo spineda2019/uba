@@ -5961,6 +5961,10 @@ dependencies = [
 ]
 
 [[package]]
+name = "xcodegen"
+version = "0.1.0"
+
+[[package]]
 name = "xcursor"
 version = "0.3.10"
 source = "registry+https://github.com/rust-lang/crates.io-index"

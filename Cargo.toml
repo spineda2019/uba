@@ -1,6 +1,6 @@
 [workspace]
 resolver = "2"
-members = ["uba-core", "uba-desktop", "uba-android"]
+members = ["uba-core", "uba-desktop", "uba-android", "xcodegen"]
 default-members = ["uba-desktop"]
 
 [workspace.package]
@@ -8,7 +8,6 @@ version = "0.1.0"
 edition = "2024"
 
 [profile.release]
-inherits = "release"
 codegen-units = 1
 lto = true
 strip = true

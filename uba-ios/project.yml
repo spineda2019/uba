@@ -1,0 +1,21 @@
+name: Uba
+options:
+  bundleIdPrefix: com.spineda
+settings:
+  ENABLE_USER_SCRIPT_SANDBOXING: NO
+targets:
+  uba:
+    type: application
+    platform: iOS
+    deploymentTarget: "12.0"
+    info:
+        path: Info.plist
+        properties:
+            UILaunchScreen:
+                - ImageRespectSafeAreaInsets: false
+    sources: []
+    postCompileScripts:
+      - script: |
+          cargo xcode --target aarch64-apple-ios-sim
+        outputFileLists:
+            $TARGET_BUILD_DIR/$EXECUTABLE_PATH

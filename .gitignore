@@ -2,3 +2,8 @@
 /target
 .DS_Store
 *.log
+
+# xcode generations
+uba-ios/.DS_Store
+uba-ios/Info.plist
+uba-ios/Uba.xcodeproj/

@@ -10,6 +10,11 @@ def main() -> int:
     print(80 * "#")
     print("# Script stdout")
     print(80 * "#")
+
+    print(f"Arguments passed to {__file__}")
+    for (i, arg) in enumerate(sys.argv):
+        print(f"\targ{i}: {arg}")
+
     env: dict[str, str] = dict(os.environ)
     scriptroot: str = os.path.dirname(os.path.abspath(__file__))
 
@@ -38,6 +43,8 @@ def main() -> int:
     # Make Cargo output cache files in Xcode's directories.
     derived_file_dir: str = env["DERIVED_FILE_DIR"]
     env["CARGO_TARGET_DIR"] = os.path.join(derived_file_dir, "cargo")
+
+    print(f"CARGO_TARGET_DIR: {env['CARGO_TARGET_DIR']}")
 
     # Forward CI build number if present.
     ci_build_number: str | None = env.get("CI_BUILD_NUMBER")
@@ -72,6 +79,8 @@ def main() -> int:
                            cargo_target]
         if len(optimization_args) > 0:
             args.extend(optimization_args)
+        if len(sys.argv) > 1:
+            args.extend(sys.argv[1:])
         subprocess.run(args,
                        check=True,
                        env=env,

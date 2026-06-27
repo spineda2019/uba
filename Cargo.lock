@@ -4841,6 +4841,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "uba"
+version = "0.1.0"
+dependencies = [
+ "slint",
+ "slint-build",
+ "uba-core",
+]
+
+[[package]]
 name = "uba-android"
 version = "0.1.0"
 dependencies = [
@@ -4852,15 +4861,6 @@ dependencies = [
 [[package]]
 name = "uba-core"
 version = "0.1.0"
-
-[[package]]
-name = "uba-desktop"
-version = "0.1.0"
-dependencies = [
- "slint",
- "slint-build",
- "uba-core",
-]
 
 [[package]]
 name = "udev"

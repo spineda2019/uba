@@ -1,11 +1,11 @@
 [package]
-name = "uba-desktop"
+name = "uba"
 version.workspace = true
 edition.workspace = true
 build = "build.rs"
 
 [[bin]]
-name = "uba-desktop"
+name = "uba"
 path = "src/main.rs"
 
 [dependencies]

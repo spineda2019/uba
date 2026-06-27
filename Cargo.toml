@@ -1,7 +1,7 @@
 [workspace]
 resolver = "2"
-members = ["uba-core", "uba-desktop", "uba-android"]
-default-members = ["uba-desktop"]
+members = ["uba-core", "uba", "uba-android"]
+default-members = ["uba"]
 
 [workspace.package]
 version = "0.1.0"

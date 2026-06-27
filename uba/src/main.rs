@@ -5,10 +5,19 @@ use uba_core::log::Logger;
 slint::include_modules!();
 
 fn main() -> std::io::Result<()> {
-    let mut logger = match Logger::from_file("uba.log") {
-        Ok(l) => l,
-        Err(e) => panic!("Could not create logger: {}", e),
-    };
+    let mut logger;
+
+    #[cfg(target_os = "ios")]
+    {
+        logger = Logger::new_transparent();
+    }
+    #[cfg(not(target_os = "ios"))]
+    {
+        logger = match Logger::from_file("uba.log") {
+            Ok(l) => l,
+            Err(e) => panic!("Could not create logger: {}", e),
+        };
+    }
 
     logger.log_msg("Starting...")?;
 

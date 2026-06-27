@@ -23,3 +23,23 @@ impl Logger<std::io::BufWriter<std::fs::File>> {
         Ok(Logger { handle: writer })
     }
 }
+
+pub struct TransparentWriter {}
+
+impl std::io::Write for TransparentWriter {
+    fn write(&mut self, buf: &[u8]) -> std::io::Result<usize> {
+        Ok(buf.len())
+    }
+
+    fn flush(&mut self) -> std::io::Result<()> {
+        Ok(())
+    }
+}
+
+impl Logger<TransparentWriter> {
+    pub fn new_transparent() -> Self {
+        Logger {
+            handle: TransparentWriter {},
+        }
+    }
+}

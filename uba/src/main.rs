@@ -9,7 +9,14 @@ fn main() -> std::io::Result<()> {
 
     #[cfg(target_os = "ios")]
     {
-        logger = Logger::new_transparent();
+        #[cfg(target_env = "sim")]
+        {
+            logger = Logger::new(std::io::stderr());
+        }
+        #[cfg(not(target_env = "sim"))]
+        {
+            logger = Logger::new_transparent();
+        }
     }
     #[cfg(not(target_os = "ios"))]
     {

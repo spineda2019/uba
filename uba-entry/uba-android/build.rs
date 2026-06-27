@@ -71,7 +71,7 @@ fn main() {
         }
     }
 
-    slint_build::compile("../ui/app.slint").expect("Slint build failed");
+    slint_build::compile("../../ui/app.slint").expect("Slint build failed");
 }
 
 fn env_var_path(name: &str) -> Option<PathBuf> {

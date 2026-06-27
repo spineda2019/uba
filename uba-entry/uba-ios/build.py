@@ -75,6 +75,8 @@ def main() -> int:
 
         args: list[str] = ["cargo",
                            "build",
+                           "-p",
+                           "uba-entry/uba-ios",
                            "--target",
                            cargo_target]
         if len(optimization_args) > 0:
@@ -84,7 +86,7 @@ def main() -> int:
         subprocess.run(args,
                        check=True,
                        env=env,
-                       cwd=os.path.join(scriptroot, ".."))
+                       cwd=os.path.join(scriptroot, "..", ".."))
 
         executable: str = os.path.join(
             derived_file_dir,

@@ -2577,10 +2577,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "libuba"
-version = "0.1.0"
-
-[[package]]
 name = "libudev-sys"
 version = "0.1.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -4848,8 +4844,6 @@ dependencies = [
 name = "uba"
 version = "0.1.0"
 dependencies = [
- "slint",
- "slint-build",
  "uba-core",
 ]
 
@@ -4859,6 +4853,7 @@ version = "0.1.0"
 dependencies = [
  "slint",
  "slint-build",
+ "uba",
  "uba-core",
 ]
 
@@ -4867,8 +4862,33 @@ name = "uba-core"
 version = "0.1.0"
 
 [[package]]
+name = "uba-desktop"
+version = "0.1.0"
+dependencies = [
+ "slint",
+ "slint-build",
+ "uba",
+ "uba-core",
+]
+
+[[package]]
+name = "uba-ios"
+version = "0.1.0"
+dependencies = [
+ "slint",
+ "slint-build",
+ "uba",
+ "uba-core",
+]
+
+[[package]]
 name = "uba-web"
 version = "0.1.0"
+dependencies = [
+ "slint-build",
+ "uba",
+ "uba-core",
+]
 
 [[package]]
 name = "udev"

@@ -1,1 +1,1 @@
-pub fn launch(logger: log::Logger<impl std::io::Write>) {}
+pub fn launch(logger: uba_core::log::Logger<impl std::io::Write>) {}

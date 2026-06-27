@@ -4,7 +4,7 @@ version.workspace = true
 edition.workspace = true
 build = "build.rs"
 
-[bin]
+[[bin]]
 name = "uba"
 path = "src/main.rs"
 

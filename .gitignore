@@ -4,6 +4,6 @@
 *.log
 
 # xcode generations
-uba-ios/.DS_Store
-uba-ios/Info.plist
-uba-ios/Uba.xcodeproj/
+uba-entry/uba-ios/.DS_Store
+uba-entry/uba-ios/Info.plist
+uba-entry/uba-ios/Uba.xcodeproj/

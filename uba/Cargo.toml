@@ -2,15 +2,6 @@
 name = "uba"
 version.workspace = true
 edition.workspace = true
-build = "build.rs"
-
-[[bin]]
-name = "uba"
-path = "src/main.rs"
 
 [dependencies]
 uba-core = { path = "../uba-core" }
-slint = "1.16"
-
-[build-dependencies]
-slint-build = "1.16"

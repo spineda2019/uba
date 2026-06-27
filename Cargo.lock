@@ -2577,6 +2577,10 @@ dependencies = [
 ]
 
 [[package]]
+name = "libuba"
+version = "0.1.0"
+
+[[package]]
 name = "libudev-sys"
 version = "0.1.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -4860,6 +4864,10 @@ dependencies = [
 
 [[package]]
 name = "uba-core"
+version = "0.1.0"
+
+[[package]]
+name = "uba-web"
 version = "0.1.0"
 
 [[package]]

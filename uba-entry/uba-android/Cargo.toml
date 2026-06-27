@@ -9,7 +9,8 @@ path = "src/lib.rs"
 crate-type = ["cdylib"]
 
 [dependencies]
-uba-core = { path = "../uba-core" }
+uba-core = { path = "../../uba-core" }
+uba = { path = "../../uba" }
 slint = { version = "1.16", features = ["backend-android-activity-06"] }
 
 [build-dependencies]

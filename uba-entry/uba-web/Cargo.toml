@@ -1,0 +1,16 @@
+[package]
+name = "uba-web"
+version.workspace = true
+edition.workspace = true
+build = "build.rs"
+
+[lib]
+path = "src/lib.rs"
+crate-type = ["cdylib"]
+
+[dependencies]
+uba-core = { path = "../../uba-core" }
+uba = { path = "../../uba" }
+
+[build-dependencies]
+slint-build = "1.16"

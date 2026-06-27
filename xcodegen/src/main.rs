@@ -40,16 +40,9 @@ fn main() {
 
     let args: Vec<String> = std::env::args().skip(1).collect();
     validate_target(&args);
-    println!(
-        "Executing '{}' in dir '{:?}' with args:",
-        CARGO_PATH, workspace_root
-    );
-    for arg in args.iter() {
-        println!("\t{}", arg);
-    }
 
-    let mut proc = std::process::Command::new(CARGO_PATH);
-    let status = proc
+    let mut build_proc = std::process::Command::new(CARGO_PATH);
+    let status = build_proc
         .current_dir(workspace_root)
         .args(args)
         .env("CARGO_PROFILE_RELEASE_DEBUG", cargo_profile_release_debug);
@@ -57,5 +50,16 @@ fn main() {
     match status.status() {
         Ok(ec) => println!("Cargo build exited with code: {}", ec),
         Err(e) => panic!("Cargo build failed with error: {}", e),
+    }
+
+    let mut xcodegen_proc = std::process::Command::new("xcodegen");
+    let xcodegen_status = xcodegen_proc
+        .current_dir(workspace_root)
+        .args(["-s", "uba-ios/project.yml"])
+        .status();
+
+    match xcodegen_status {
+        Ok(ec) => println!("xcodegen exited with code: {}", ec),
+        Err(e) => panic!("xcodegen failed with error: {}", e),
     }
 }

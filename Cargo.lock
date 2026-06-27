@@ -4884,6 +4884,7 @@ version = "0.1.0"
 dependencies = [
  "uba",
  "uba-core",
+ "wasm-bindgen",
 ]
 
 [[package]]

@@ -7,6 +7,10 @@ edition.workspace = true
 path = "src/lib.rs"
 crate-type = ["cdylib"]
 
+[package.metadata.wasm-pack.profile.release]
+wasm-opt = false
+
 [dependencies]
 uba-core = { path = "../../uba-core" }
 uba = { path = "../../uba" }
+wasm-bindgen = { version = "0.2" }

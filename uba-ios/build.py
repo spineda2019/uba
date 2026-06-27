@@ -7,8 +7,13 @@ from pathlib import Path
 
 
 def main() -> int:
+    print(80 * "#")
+    print("# Script stdout")
+    print(80 * "#")
     env: dict[str, str] = dict(os.environ)
     scriptroot: str = os.path.dirname(os.path.abspath(__file__))
+
+    print("patching up PATH")
 
     # Fix up PATH to work around
     # https://github.com/rust-lang/rust/issues/80817
@@ -25,6 +30,8 @@ def main() -> int:
         optimization_args.append("--release")
         cargo_profile = "release"
 
+    print(f"Build optimization: {cargo_profile}")
+
     # Build with debug info so a dSYM can be produced.
     env.setdefault("CARGO_PROFILE_RELEASE_DEBUG", "1")
 
@@ -39,10 +46,13 @@ def main() -> int:
 
     is_simulator: bool = env.get("LLVM_TARGET_TRIPLE_SUFFIX") == "-simulator"
 
+    print(f"Is simulator: {is_simulator}")
+
     archs: list[str] = env["ARCHS"].split()
     executables: list[str] = []
 
     for arch in archs:
+        print(f"building for arch: {arch}")
         if arch == "arm64":
             if is_simulator:
                 cargo_target: str = "aarch64-apple-ios-sim"
@@ -78,12 +88,20 @@ def main() -> int:
     target_build_dir: str = env["TARGET_BUILD_DIR"]
     executable_path: str = env["EXECUTABLE_PATH"]
 
-    subprocess.run(["lipo",
-                    "-create",
-                    "-output",
-                    os.path.join(target_build_dir, executable_path),
-                    *executables],
-                   env=env)
+    print(f"target build dir: {target_build_dir}")
+    print(f"executable path: {executable_path}")
+
+    lipo = ["lipo",
+            "-create",
+            "-output",
+            os.path.join(target_build_dir, executable_path),
+            *executables]
+
+    print("Lipo args: ")
+    for (i, arg) in enumerate(lipo):
+        print(f"\targ{i}: {arg}")
+
+    subprocess.run(lipo, env=env)
 
     dwarf_dsym_folder: str | None = env.get("DWARF_DSYM_FOLDER_PATH")
     dwarf_dsym_name: str | None = env.get("DWARF_DSYM_FILE_NAME")

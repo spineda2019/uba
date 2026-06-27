@@ -16,6 +16,6 @@ targets:
     sources: []
     postCompileScripts:
       - script: |
-          cargo xcode --target aarch64-apple-ios-sim
+          ./build.py
         outputFileLists:
             $TARGET_BUILD_DIR/$EXECUTABLE_PATH

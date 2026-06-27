@@ -1,6 +1,0 @@
-[package]
-name = "xcodegen"
-version.workspace = true
-edition.workspace = true
-
-[dependencies]

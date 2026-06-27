@@ -1,6 +1,6 @@
 [workspace]
 resolver = "2"
-members = ["uba-core", "uba-desktop", "uba-android", "xcodegen"]
+members = ["uba-core", "uba-desktop", "uba-android"]
 default-members = ["uba-desktop"]
 
 [workspace.package]

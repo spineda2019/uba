@@ -4844,6 +4844,8 @@ dependencies = [
 name = "uba"
 version = "0.1.0"
 dependencies = [
+ "slint",
+ "slint-build",
  "uba-core",
 ]
 
@@ -4852,7 +4854,6 @@ name = "uba-android"
 version = "0.1.0"
 dependencies = [
  "slint",
- "slint-build",
  "uba",
  "uba-core",
 ]
@@ -4865,8 +4866,6 @@ version = "0.1.0"
 name = "uba-desktop"
 version = "0.1.0"
 dependencies = [
- "slint",
- "slint-build",
  "uba",
  "uba-core",
 ]
@@ -4875,8 +4874,6 @@ dependencies = [
 name = "uba-ios"
 version = "0.1.0"
 dependencies = [
- "slint",
- "slint-build",
  "uba",
  "uba-core",
 ]
@@ -4885,7 +4882,6 @@ dependencies = [
 name = "uba-web"
 version = "0.1.0"
 dependencies = [
- "slint-build",
  "uba",
  "uba-core",
 ]

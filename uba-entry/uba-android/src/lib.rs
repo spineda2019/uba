@@ -1,13 +1,16 @@
-slint::include_modules!();
+use uba::launch;
+use uba_core::log::Logger;
 
-fn run_app() -> Result<(), Box<dyn std::error::Error>> {
-    AppWindow::new()?.run()?;
-    Ok(())
-}
-
-#[cfg(target_os = "android")]
 #[unsafe(no_mangle)]
 fn android_main(app: slint::android::AndroidApp) {
+    #[cfg(not(target_os = "android"))]
+    {
+        compile_error!("uba-android must be built targeting android");
+    }
+
     slint::android::init(app).unwrap();
-    run_app().unwrap();
+
+    let logger = Logger::new(std::io::stderr());
+
+    launch(logger).unwrap();
 }

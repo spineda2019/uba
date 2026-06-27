@@ -13,9 +13,6 @@ uba-core = { path = "../../uba-core" }
 uba = { path = "../../uba" }
 slint = { version = "1.16", features = ["backend-android-activity-06"] }
 
-[build-dependencies]
-slint-build = "1.16"
-
 [features]
 # Set to ON by default using `cargo android` from .cargo/config.toml. This is so
 # when building through xbuild, the feature will be set to off, allowing the

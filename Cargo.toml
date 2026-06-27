@@ -6,7 +6,7 @@ members = [
     "uba-entry/uba-ios",
     "uba-entry/uba-web",
     "uba",
-    "uba-core",
+    "uba-core", "xcodegen",
 ]
 
 default-members = ["uba-entry/uba-desktop"]

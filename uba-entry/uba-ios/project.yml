@@ -17,5 +17,6 @@ targets:
     postCompileScripts:
       - script: |
           ./build.py
+        basedOnDependencyAnalysis: false
         outputFileLists:
-            $TARGET_BUILD_DIR/$EXECUTABLE_PATH
+            "${TARGET_BUILD_DIR}/${EXECUTABLE_PATH}"

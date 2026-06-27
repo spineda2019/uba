@@ -8,3 +8,4 @@ rustflags = ["-C", "link-arg=/STACK:8000000"]
 
 [alias]
 android = "build -p uba-android --features build-checks --target"
+xcodegen = "run -p xcodegen"

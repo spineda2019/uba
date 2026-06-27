@@ -76,7 +76,7 @@ def main() -> int:
         args: list[str] = ["cargo",
                            "build",
                            "-p",
-                           "uba-entry/uba-ios",
+                           "uba-ios",
                            "--target",
                            cargo_target]
         if len(optimization_args) > 0:

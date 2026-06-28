@@ -1,19 +1,25 @@
 slint::include_modules!();
 
+mod controller;
+mod model;
+
 pub fn launch(mut logger: uba_core::log::Logger<impl std::io::Write>) -> std::io::Result<()> {
     logger.log_msg("Starting...")?;
 
-    let window = match AppWindow::new() {
+    let app = match controller::MainController::new() {
         Ok(app) => app,
         Err(err) => {
             logger.log_error(&err)?;
-            return Err(std::io::Error::other(err));
+            return Err(err);
         }
     };
 
-    logger.log_msg("Window constructed")?;
+    app.bind();
 
-    if let Err(err) = window.run() {
+    logger.log_msg("View constructed")?;
+    logger.log_msg("Initializing view callbacks")?;
+
+    if let Err(err) = app.run() {
         logger.log_error(&err)?;
         return Err(std::io::Error::other(err));
     }

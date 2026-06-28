@@ -3,26 +3,29 @@ import { Button } from "std-widgets.slint";
 export component AppWindow inherits Window {
     title: "uba";
 
+    in-out property <string> balance;
+    callback click();
+
     GridLayout {
         spacing: 8px;
         padding: 16px;
 
-        Button {
-            text: "TODO";
+        Text {
+            text: root.balance;
             row: 0;
             col: 0;
+            colspan: 2;
+            horizontal-alignment: center;
         }
 
         Button {
-            text: "TODO";
-            row: 0;
-            col: 1;
-        }
-
-        Button {
-            text: "TODO";
+            text: "Test balance:";
             row: 1;
             col: 0;
+            clicked => {
+                // How do I update the text of the central balance?
+                root.click();
+            }
         }
 
         Button {
@@ -38,7 +41,7 @@ export component AppWindow inherits Window {
         }
 
         Button {
-            text: "TODO";
+            text: "Panic";
             row: 2;
             col: 1;
         }

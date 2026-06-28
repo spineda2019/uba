@@ -26,6 +26,10 @@ impl Config {
 
         toml::from_str(&buf).map_err(std::io::Error::other)
     }
+
+    pub fn get_balance(&self) -> usize {
+        self.balance
+    }
 }
 
 impl std::fmt::Display for Config {

@@ -1,6 +1,7 @@
 use std::{cell::RefCell, rc::Rc};
 
 use slint::ComponentHandle;
+use uba_core::persistence::Config;
 
 use crate::AppWindow;
 
@@ -37,6 +38,10 @@ impl MainController {
                 }
             }
         });
+    }
+
+    pub fn load_config(&mut self, config: &Config) {
+        self.balance_model.borrow_mut().load_config(config);
     }
 
     pub fn run(&self) -> Result<(), slint::PlatformError> {

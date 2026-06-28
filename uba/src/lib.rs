@@ -8,7 +8,7 @@ mod model;
 pub fn launch(mut logger: uba_core::log::Logger<impl std::io::Write>) -> std::io::Result<()> {
     logger.log_msg("Starting...")?;
 
-    let app = match controller::MainController::new() {
+    let mut app = match controller::MainController::new() {
         Ok(app) => app,
         Err(err) => {
             logger.log_error(&err, None::<&str>)?;
@@ -55,6 +55,8 @@ pub fn launch(mut logger: uba_core::log::Logger<impl std::io::Write>) -> std::io
         logger.log_warning("Could not find config dir, using default config.")?;
         Config::default()
     };
+
+    app.load_config(&conf);
 
     logger.log_msg(format!("Using conf: {}", conf))?;
 

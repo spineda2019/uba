@@ -4,10 +4,20 @@ use uba::launch;
 use uba_core::log::Logger;
 
 fn main() -> std::io::Result<()> {
-    let logger = match Logger::from_file("uba.log") {
-        Ok(l) => l,
-        Err(e) => panic!("Could not create logger: {}", e),
-    };
+    let logger: Logger<_>;
+
+    #[cfg(console_log)]
+    {
+        // enabled by default in debug builds
+        logger = Logger::new(std::io::stderr());
+    }
+    #[cfg(not(console_log))]
+    {
+        logger = match Logger::from_file("uba.log") {
+            Ok(l) => l,
+            Err(e) => panic!("Could not create logger: {}", e),
+        };
+    }
 
     launch(logger)
 }

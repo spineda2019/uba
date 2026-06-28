@@ -7,11 +7,20 @@ impl<T: std::io::Write> Logger<T> {
         Logger { handle }
     }
 
-    pub fn log_error<E: std::error::Error>(&mut self, err: E) -> std::io::Result<()> {
-        writeln!(self.handle, "ERR: {}", err)
+    pub fn log_error<E: std::error::Error>(
+        &mut self,
+        err: E,
+        extra: Option<impl std::fmt::Display>,
+    ) -> std::io::Result<()> {
+        writeln!(self.handle, "ERR: {}", err)?;
+        if let Some(diagnostic) = extra {
+            writeln!(self.handle, "\t{}", diagnostic)
+        } else {
+            Ok(())
+        }
     }
 
-    pub fn log_msg(&mut self, msg: &str) -> std::io::Result<()> {
+    pub fn log_msg(&mut self, msg: impl std::fmt::Display) -> std::io::Result<()> {
         writeln!(self.handle, "MSG: {}", msg)
     }
 }

@@ -2,3 +2,6 @@
 name = "uba-core"
 version.workspace = true
 edition.workspace = true
+
+[dependencies]
+directories-next = "2.0.0"

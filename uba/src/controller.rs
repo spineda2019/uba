@@ -16,7 +16,6 @@ impl MainController {
             Ok(window) => window,
             Err(err) => return Err(std::io::Error::other(err)),
         };
-        app_window.set_balance("Balance: 0".into());
 
         let balance_model = Rc::new(RefCell::new(crate::model::BalanceModel::new()));
 

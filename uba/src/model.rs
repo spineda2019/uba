@@ -15,6 +15,10 @@ impl BalanceModel {
 
     pub fn increment_and_get_balance(&mut self) -> usize {
         self.balance += 1;
+        self.get_balance()
+    }
+
+    pub fn get_balance(&self) -> usize {
         self.balance
     }
 }

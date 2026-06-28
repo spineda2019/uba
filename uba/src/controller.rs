@@ -42,6 +42,18 @@ impl MainController {
 
     pub fn load_config(&mut self, config: &Config) {
         self.balance_model.borrow_mut().load_config(config);
+        self.app_window
+            .set_balance(format!("Balance: {}", self.balance_model.borrow().get_balance()).into());
+    }
+
+    pub fn save_config(
+        &mut self,
+        config: &mut Config,
+        path_on_disk: &std::path::Path,
+    ) -> std::io::Result<()> {
+        config.set_balance(self.balance_model.borrow().get_balance());
+
+        config.save(path_on_disk)
     }
 
     pub fn run(&self) -> Result<(), slint::PlatformError> {

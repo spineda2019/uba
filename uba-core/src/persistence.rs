@@ -30,6 +30,18 @@ impl Config {
     pub fn get_balance(&self) -> usize {
         self.balance
     }
+
+    pub fn set_balance(&mut self, amnt: usize) {
+        self.balance = amnt;
+    }
+
+    pub fn save(&self, path_on_disk: &std::path::Path) -> std::io::Result<()> {
+        // truncates file if it exists, which is fine since we're about to overwrite it anyway
+        let mut dest: std::fs::File = std::fs::File::create(path_on_disk)?;
+        let payload = toml::to_string(&self).map_err(std::io::Error::other)?;
+
+        dest.write_all(&payload.into_bytes())
+    }
 }
 
 impl std::fmt::Display for Config {

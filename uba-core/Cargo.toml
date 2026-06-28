@@ -5,3 +5,5 @@ edition.workspace = true
 
 [dependencies]
 directories-next = "2.0.0"
+serde = { version = "1.0.228", features = ["serde_derive"] }
+toml = "1.1.2"

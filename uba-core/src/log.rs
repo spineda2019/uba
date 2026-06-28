@@ -23,6 +23,10 @@ impl<T: std::io::Write> Logger<T> {
     pub fn log_msg(&mut self, msg: impl std::fmt::Display) -> std::io::Result<()> {
         writeln!(self.handle, "MSG: {}", msg)
     }
+
+    pub fn log_warning(&mut self, msg: impl std::fmt::Display) -> std::io::Result<()> {
+        writeln!(self.handle, "WARNING: {}", msg)
+    }
 }
 
 impl Logger<std::io::BufWriter<std::fs::File>> {

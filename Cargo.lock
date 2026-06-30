@@ -4902,8 +4902,10 @@ dependencies = [
 name = "uba"
 version = "0.1.0"
 dependencies = [
+ "serde",
  "slint",
  "slint-build",
+ "toml 1.1.2+spec-1.1.0",
  "uba-core",
 ]
 
@@ -4921,8 +4923,6 @@ name = "uba-core"
 version = "0.1.0"
 dependencies = [
  "directories-next",
- "serde",
- "toml 1.1.2+spec-1.1.0",
 ]
 
 [[package]]

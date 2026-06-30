@@ -1,58 +1,21 @@
-use uba_core::persistence::{self, Config};
-
 slint::include_modules!();
 
 mod controller;
 mod model;
+mod repository;
 
 pub fn launch(mut logger: uba_core::log::Logger<impl std::io::Write>) -> std::io::Result<()> {
     logger.log_msg("Starting...")?;
 
-    let conf: Config = if let Some(mut config_dir) = persistence::get_configuration_dir() {
-        logger.log_msg(format!("config dir: {:?}", config_dir.as_os_str()))?;
-        match std::fs::exists(&config_dir) {
-            Ok(exists) => {
-                if !exists && let Err(err) = std::fs::create_dir_all(&config_dir) {
-                    logger.log_error(err, Some("Could not create directory"))?;
-                }
-
-                config_dir.push("uba.toml");
-
-                match Config::from_file(&config_dir) {
-                    Ok(c) => c,
-                    Err(err) => {
-                        logger.log_error(
-                            &err,
-                            Some(format!(
-                                "Could not create config from file: {:?}",
-                                &config_dir
-                            )),
-                        )?;
-                        return Err(err);
-                    }
-                }
-            }
-            Err(err) => {
-                logger.log_error(&err, None::<&str>)?;
-                return Err(err);
-            }
-        }
-    } else {
-        logger.log_warning("Could not find config dir, using default config.")?;
-        Config::default()
-    };
-
-    logger.log_msg(format!("Using conf: {}", conf))?;
-
-    let app = match controller::MainController::new(conf) {
+    let app = match controller::MainController::new(&mut logger) {
         Ok(app) => app,
         Err(err) => {
-            logger.log_error(&err, None::<&str>)?;
+            logger.log_error(&err, Some("Could not construct MainController"))?;
             return Err(err);
         }
     };
 
-    // registers casllbacks
+    // registers callbacks
     app.bind();
 
     logger.log_msg("View constructed")?;

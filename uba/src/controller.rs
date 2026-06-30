@@ -1,37 +1,34 @@
-use std::{cell::RefCell, rc::Rc};
+pub mod transaction_controller;
 
 use slint::ComponentHandle;
-use uba_core::persistence::Config;
+use std::{cell::RefCell, rc::Rc};
 
 use crate::AppWindow;
+use transaction_controller::TransactionController;
 
 pub struct MainController {
     app_window: AppWindow,
 
-    balance_model: Rc<RefCell<crate::model::BalanceModel>>,
-
-    /// Contains amalgamated data for _all_ models. Used to save all info to disk
-    config: Rc<RefCell<Config>>,
+    balance_controller: Rc<RefCell<TransactionController>>,
 }
 
 impl MainController {
-    pub fn new(config: Config) -> std::io::Result<Self> {
+    pub fn new(logger: &mut uba_core::log::Logger<impl std::io::Write>) -> std::io::Result<Self> {
         let app_window = match AppWindow::new() {
             Ok(window) => window,
             Err(err) => return Err(std::io::Error::other(err)),
         };
 
-        let mut balance_model = crate::model::BalanceModel::new();
-        balance_model.load_config(&config);
-        app_window.set_balance(format!("Balance: {}", balance_model.get_balance()).into());
+        logger.log_msg("Window handle constructed")?;
 
-        let balance_model = Rc::new(RefCell::new(balance_model));
-        let config = Rc::new(RefCell::new(config));
+        let balance_controller = TransactionController::new(logger)?;
+        app_window.set_balance(format!("Balance: {}", balance_controller.get_balance()).into());
+
+        let balance_controller = Rc::new(RefCell::new(balance_controller));
 
         Ok(Self {
             app_window,
-            balance_model,
-            config,
+            balance_controller,
         })
     }
 
@@ -39,11 +36,9 @@ impl MainController {
         let handle: slint::Weak<AppWindow> = self.app_window.as_weak();
 
         self.app_window.on_click({
-            let model_clone = Rc::clone(&self.balance_model);
-            let config_clone = Rc::clone(&self.config);
+            let controller_clone = Rc::clone(&self.balance_controller);
             move || {
-                let new_bal = model_clone.borrow_mut().increment_and_get_balance();
-                config_clone.borrow_mut().set_balance(new_bal);
+                let new_bal = controller_clone.borrow_mut().increment_and_get_balance();
                 if let Some(strong) = handle.upgrade() {
                     strong.set_balance(format!("Balance: {}", new_bal).into());
                 }

@@ -1,6 +1,6 @@
 #[derive(serde::Deserialize, serde::Serialize)]
 pub struct TransactionModel {
-    balance: usize,
+    balance: i32,
     transaction: Vec<()>,
 }
 
@@ -27,12 +27,12 @@ impl TransactionModel {
         toml::from_str(&buf).map_err(std::io::Error::other)
     }
 
-    pub fn increment_and_get_balance(&mut self) -> usize {
+    pub fn increment_and_get_balance(&mut self) -> i32 {
         self.balance += 1;
         self.get_balance()
     }
 
-    pub fn get_balance(&self) -> usize {
+    pub fn get_balance(&self) -> i32 {
         self.balance
     }
 

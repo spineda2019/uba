@@ -48,11 +48,11 @@ impl TransactionController {
         Ok(Self { model, repo })
     }
 
-    pub fn get_balance(&self) -> usize {
+    pub fn get_balance(&self) -> i32 {
         self.model.get_balance()
     }
 
-    pub fn increment_and_get_balance(&mut self) -> usize {
+    pub fn increment_and_get_balance(&mut self) -> i32 {
         // TODO(SEP): Repo work
         let new_bal = self.model.increment_and_get_balance();
 

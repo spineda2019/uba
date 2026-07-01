@@ -3,7 +3,7 @@ import { Button } from "std-widgets.slint";
 export component AppWindow inherits Window {
     title: "uba";
 
-    in-out property <string> balance: "Balance: 0";
+    in-out property <int> balance: 0;
     callback click();
 
     GridLayout {
@@ -11,7 +11,7 @@ export component AppWindow inherits Window {
         padding: 16px;
 
         Text {
-            text: root.balance;
+            text: "Balance: $\{root.balance}";
             row: 0;
             col: 0;
             colspan: 2;

@@ -22,7 +22,7 @@ impl MainController {
         logger.log_msg("Window handle constructed")?;
 
         let balance_controller = TransactionController::new(logger)?;
-        app_window.set_balance(format!("Balance: {}", balance_controller.get_balance()).into());
+        app_window.set_balance(balance_controller.get_balance());
 
         let balance_controller = Rc::new(RefCell::new(balance_controller));
 
@@ -40,7 +40,7 @@ impl MainController {
             move || {
                 let new_bal = controller_clone.borrow_mut().increment_and_get_balance();
                 if let Some(strong) = handle.upgrade() {
-                    strong.set_balance(format!("Balance: {}", new_bal).into());
+                    strong.set_balance(new_bal);
                 }
             }
         });
